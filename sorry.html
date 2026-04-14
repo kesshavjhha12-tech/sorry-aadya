@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>For Aadya 💖</title>
+
+<style>
+body {
+    margin:0;
+    font-family: 'Comic Sans MS', cursive;
+    background: linear-gradient(135deg,#ffd6e0,#fff0f5);
+    overflow:hidden;
+    text-align:center;
+}
+
+/* Envelope */
+.envelope {
+    width:220px;
+    height:140px;
+    background:#ff9bb3;
+    margin:200px auto;
+    border-radius:12px;
+    cursor:pointer;
+    transition:0.4s;
+}
+.envelope:hover { transform:scale(1.1); }
+
+.flap {
+    width:0;
+    height:0;
+    border-left:110px solid transparent;
+    border-right:110px solid transparent;
+    border-bottom:70px solid #ff6f91;
+    position:relative;
+    top:-70px;
+}
+
+/* Content */
+.content { display:none; }
+
+img {
+    width:240px;
+    border-radius:20px;
+    margin-top:20px;
+}
+
+/* Button */
+button {
+    padding:12px 25px;
+    border:none;
+    border-radius:25px;
+    background:#ff6f91;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+    margin:10px;
+}
+
+/* Message */
+.message {
+    display:none;
+    background:white;
+    padding:20px;
+    margin:20px auto;
+    width:80%;
+    max-width:400px;
+    border-radius:20px;
+}
+
+/* Hearts */
+.heart {
+    position:absolute;
+    animation:float 6s linear infinite;
+}
+@keyframes float {
+    from { transform:translateY(100vh); }
+    to { transform:translateY(-10vh); }
+}
+
+/* Fireworks */
+.firework {
+    position:absolute;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+}
+</style>
+</head>
+
+<body>
+
+<div class="envelope" onclick="openEnvelope()">
+<div class="flap"></div>
+</div>
+
+<div class="content" id="content">
+
+<h2>nigusrur mine ke liye muah💖</h2>
+
+<img id="slideshow">
+
+<br>
+<button onclick="startMessage()">Click me </button>
+
+<div class="message" id="message"></div>
+
+<div id="choices" style="display:none;">
+    <h3>Will you forgive me? 🥺</h3>
+    <button onclick="yesForgive()">Yes 💖</button>
+    <button id="noBtn" onmouseover="moveNo()">No 😢</button>
+</div>
+
+</div>
+
+<script>
+
+/* IMAGE PATHS (FIXED) */
+let images = [
+"C:/Users/kessh/Desktop/sowie/aadya1.jpeg",
+"C:/Users/kessh/Desktop/sowie/aadya2.jpeg",
+"C:/Users/kessh/Desktop/sowie/aadya3.jpeg"
+];
+
+let index = 0;
+
+/* LOAD SLIDESHOW */
+window.onload = function(){
+    let img = document.getElementById("slideshow");
+    img.src = images[0];
+
+    setInterval(()=>{
+        index = (index + 1) % images.length;
+        img.src = images[index];
+    },2500);
+};
+
+/* OPEN ENVELOPE */
+function openEnvelope(){
+    document.querySelector(".envelope").style.display="none";
+    document.getElementById("content").style.display="block";
+}
+
+/* MESSAGE */
+let text = `I'm really sorry...
+
+I never wanted to hurt you.
+You mean a lot to me.
+
+I miss your smile...
+I miss us.
+
+ik ive done a lhell lotta gandupanti but irl its not easy for me to let go someone aise , ik i might 
+act tough or whatever but han i am scared all the time ki ill loose someone cuz of mera behaviour ya kya 
+im trying to improve myself thoda sa pls maaf kardo`;
+
+let i = 0;
+
+function startMessage(){
+    let box = document.getElementById("message");
+    box.style.display = "block";
+    type();
+}
+
+function type(){
+    if(i < text.length){
+        document.getElementById("message").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(type,40);
+    } else {
+        document.getElementById("choices").style.display = "block";
+    }
+}
+
+/* NO BUTTON RUNS 😂 */
+function moveNo(){
+    let btn = document.getElementById("noBtn");
+    btn.style.position="absolute";
+    btn.style.left=Math.random()*80+"vw";
+    btn.style.top=Math.random()*80+"vh";
+}
+
+/* YES → FIREWORKS */
+function yesForgive(){
+
+    let overlay = document.createElement("div");
+
+    overlay.style.position="fixed";
+    overlay.style.top=0;
+    overlay.style.left=0;
+    overlay.style.width="100%";
+    overlay.style.height="100%";
+    overlay.style.background="rgba(255,182,193,0.95)";
+    overlay.style.display="flex";
+    overlay.style.flexDirection="column";
+    overlay.style.justifyContent="center";
+    overlay.style.alignItems="center";
+    overlay.style.zIndex="999";
+
+    overlay.innerHTML = `
+        <h1 style="color:white;font-size:40px;">jorrr se paadddd leloo muahhhh</h1>
+        <p style="color:white;">thhehehhee karadi tum tho</p>
+    `;
+
+    document.body.appendChild(overlay);
+
+    setInterval(fireworks,800);
+}
+
+/* FIREWORKS */
+function fireworks(){
+
+    let centerX = Math.random() * window.innerWidth;
+    let centerY = Math.random() * window.innerHeight;
+
+    for(let i=0;i<40;i++){
+        let f = document.createElement("div");
+        f.className = "firework";
+
+        let angle = Math.random() * 2 * Math.PI;
+        let radius = Math.random() * 150;
+
+        let x = Math.cos(angle) * radius;
+        let y = Math.sin(angle) * radius;
+
+        let colors = ["#ff4d6d","#ff85a1","#ff99c8","#ffc2d1","#ff0a54"];
+        f.style.background = colors[Math.floor(Math.random()*colors.length)];
+
+        f.style.left = centerX + "px";
+        f.style.top = centerY + "px";
+
+        f.animate([
+            { transform: "translate(0,0)", opacity: 1 },
+            { transform: `translate(${x}px, ${y}px)`, opacity: 0 }
+        ], {
+            duration: 1000,
+            easing: "ease-out"
+        });
+
+        document.body.appendChild(f);
+
+        setTimeout(()=>f.remove(),1000);
+    }
+}
+
+/* FLOATING HEARTS */
+setInterval(()=>{
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="💖";
+    h.style.left=Math.random()*100+"vw";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+},300);
+
+</script>
+
+</body>
+</html>
